@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 
 const steps = ['', '', '', ''];
 
-export default function HorizontalLinearStepper() {
+export default function HorizontalLinearStepper(toShow: any) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set<number>());
 
@@ -51,6 +51,8 @@ export default function HorizontalLinearStepper() {
   const handleReset = () => {
     setActiveStep(0);
   };
+
+  if (!toShow) return null
 
   return (
     <Box sx={{ width: '100%' }}>

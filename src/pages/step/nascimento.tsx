@@ -27,9 +27,7 @@ function Copyright(props: any) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
-export default function SignInSide() {
+export default function MainPage() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -39,41 +37,37 @@ export default function SignInSide() {
     });
   };
 
-  const [cpf, setCpf] = useState('')
-  const maskCpfCnpj = async (e: any) => {
+  const [dataNascimento, setDataNascimento] = useState('')
+  const maskDataNascimento = async (e: any) => {
+    //date formmat dd/mm/yyyy
     let target = e.target?.value
-    let newTarget = ""
-
-    if (target.length <= 14) {
+    let newTarget = ''
+    if (target.length <= 10) {
       newTarget = target
         .replace(/\D/g, '')
-        .replace(/(\d{3})(\d)/, '$1.$2')
-        .replace(/(\d{3})(\d)/, '$1.$2')
-        .replace(/(\d{3})(\d{1,2})/, '$1-$2')
-        .replace(/(-\d{2})\d+?$/, '$1')
+        .replace(/(\d{2})(\d)/, '$1/$2')
+        .replace(/(\d{2})(\d)/, '$1/$2')
+        .replace(/(\d{4})(\d)/, '$1')
     } else {
       newTarget = target
         .replace(/\D/g, '')
-        .replace(/(\d{2})(\d)/, '$1.$2')
-        .replace(/(\d{3})(\d)/, '$1.$2')
-        .replace(/(\d{3})(\d)/, '$1/$2')
-        .replace(/(\d{4})(\d)/, '$1-$2')
-        .replace(/(-\d{2})\d+?$/, '$1')
-
+        .replace(/(\d{2})(\d)/, '$1/$2')
+        .replace(/(\d{2})(\d)/, '$1/$2')
+        .replace(/(\d{4})(\d)/, '$1')
     }
-    setCpf(newTarget)
+    setDataNascimento(newTarget)
   }
 
+
   return (
-    <Grid container component="main" sx={{ height: '100vh', textAlign: 'center', alignItems: '' }}>
+    <Grid container component="main" sx={{ height: '100vh' }}>
       <CssBaseline />
       <Grid
-        item
         xs={false}
         sm={4}
         md={7}
         sx={{
-          backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+          backgroundImage: 'url(https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)',
           backgroundRepeat: 'no-repeat',
           backgroundColor: (t) =>
             t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -81,7 +75,7 @@ export default function SignInSide() {
           backgroundPosition: 'center',
         }}
       />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square sx={{ width: '100%', alignItems: 'center' }} >
         <Box
           sx={{
             my: 8,
@@ -91,40 +85,50 @@ export default function SignInSide() {
             alignItems: 'center',
           }}
         >
-          <Grid item style={{ alignItems: 'flex-start', marginBottom: '20%' }}>
+          <Grid item style={{ marginBottom: '10%', justifyItems: 'center' }}>
             <img src="https://i.ibb.co/28g6LWq/Algar.png" alt="Logo Algar" style={{ width: '35%', minWidth: '100px' }} />
           </Grid>
 
-
           <Typography component="h1" variant="h6">
-            Consulte suas negociações aqui
+            Informe sua data de nascimento
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }} >
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1, width: '100%' }}>
             <TextField
               margin="normal"
               required
               fullWidth
-              name="cpfCnpj"
-              label="CPF / CNPJ"
-              type="cpfCnpj"
-              id="cpfCnpj"
-              value={cpf}
-              onChange={maskCpfCnpj}
-              autoComplete="current-password"
+              name="nascimento"
+              label="Data de nascimento"
+              type="nascimento"
+              id="nascimento"
+              value={dataNascimento}
+              onChange={maskDataNascimento}
             />
-            <FormControlLabel
-              sx={{ textAlign: 'left', justifyContent: 'left' }}
-              control={<Checkbox value="remember" color="primary" />}
-              label="Eu aceito os Termos e Políticas de Privacidade."
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Consultar
-            </Button>
+
+            <Grid container spacing={2} >
+              <Grid item xs={6}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="outlined"
+                  sx={{ my: 2 }}
+                >
+                  Voltar
+                </Button>
+              </Grid>
+
+              <Grid item xs={6}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ my: 2 }}
+                >
+                  Próximo
+                </Button>
+              </Grid>
+            </Grid>
+
             {/* <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
@@ -141,6 +145,6 @@ export default function SignInSide() {
           </Box>
         </Box>
       </Grid>
-    </Grid>
+    </Grid >
   );
 }
