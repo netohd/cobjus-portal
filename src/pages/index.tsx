@@ -1,5 +1,4 @@
 'use client'
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -9,10 +8,10 @@ import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
+import router from 'next/router';
+import Header from '@/components/header';
 
 function Copyright(props: any) {
   return (
@@ -35,6 +34,8 @@ export default function MainPage() {
       email: data.get('email'),
       password: data.get('password'),
     });
+
+    router.push('/step/nascimento');
   };
 
   const [cpf, setCpf] = useState('')
@@ -89,13 +90,7 @@ export default function MainPage() {
             alignItems: 'center',
           }}
         >
-          <Grid item style={{ marginBottom: '10%', justifyItems: 'center' }}>
-            <img src="https://i.ibb.co/28g6LWq/Algar.png" alt="Logo Algar" style={{ width: '35%', minWidth: '100px' }} />
-          </Grid>
-
-          <Typography component="h1" variant="h6">
-            Consulte suas negociações aqui
-          </Typography>
+          <Header title={'Vamos começar, informe seu CPF:'} />
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }} >
             <TextField
               margin="normal"
@@ -121,18 +116,6 @@ export default function MainPage() {
             >
               Consultar
             </Button>
-            {/* <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Esqueceu sua senha?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid> */}
             <Copyright sx={{ mt: 5 }} />
           </Box>
         </Box>
